@@ -1,0 +1,93 @@
+openapi: 3.1.1
+info:
+  title: Fujitsu API
+  version: 1.0.0
+  description: |
+    Food delivery application API that calculates the delivery fee for couriers 
+    based on regional base fees, vehicle type, and weather conditions.
+
+servers:
+  - url: http://localhost:8080/
+    description: Local development server
+
+externalDocs:
+  url: https://swagger.io/specification/
+  description: Find more information about OAS3.0 standard.
+
+tags:
+  - name: Application
+    description: API for delivery fee calculation.
+  - name: Delivery Fee
+
+paths:
+  /fee:
+    get:
+      operationId: getFee
+      tags:
+        - Delivery Fee
+      summary: Returns delivery fee
+      description: |
+        Calculates the delivery fee based on the provided location and delivery transport type.
+      parameters:
+        - $ref: '#/components/parameters/Location'
+        - $ref: '#/components/parameters/DeliveryTransport'
+      responses:
+        '200':
+          description: Successful response with calculated delivery fee.
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Fee'
+        '400':
+          description: Bad request (invalid parameters).
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    Fee:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: float
+        currency:
+          type: string
+          example: "EUR"
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Invalid location provided."
+
+  parameters:
+    Location:
+      name: location
+      in: query
+      description: Delivery location
+      required: true
+      schema:
+        type: string
+
+    DeliveryTransport:
+      name: deliveryTransport
+      in: query
+      description: Delivery transport type
+      required: true
+      schema:
+        type: string
+        enum: [ "bike", "car", "scooter" ]
