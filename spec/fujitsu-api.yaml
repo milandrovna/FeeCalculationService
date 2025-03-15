@@ -67,62 +67,6 @@ components:
           type: string
           example: "EUR"
 
-    WeatherCondition:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Id of the WeatherCondition
-          example: 1
-        stationName:
-          type: string
-          description: Name of the station, from where weather condition info comes
-          example: Tallinn-Harku
-        wmoStationCode:
-          type: integer
-          description: WMO code of the station
-          example: 26038
-        airTemperature:
-          type: float
-          description: Air temperature
-          example: 4.7
-        windSpeed:
-          type: float
-          description: Wind speed
-          example: 7.8
-        weatherPhenomenon:
-          type: string
-          description: Observed weather phenomenon
-          example: CLEAR
-          enum:
-            - CLEAR
-            - FEW_CLOUDS
-            - VARIABLE_CLOUDS
-            - CLOUDY_WITH_CLEAR_SPELLS
-            - OVERCAST
-            - LIGHT_SNOW_SHOWER
-            - MODERATE_SNOW_SHOWER
-            - HEAVY_SNOW_SHOWER
-            - LIGHT_RAIN
-            - MODERATE_RAIN
-            - HEAVY_RAIN
-            - GLAZE
-            - LIGHT_SLEET
-            - MODERATE_SLEET
-            - LIGHT_SNOWFALL
-            - MODERATE_SNOWFALL
-            - HEAVY_SNOWFALL
-            - HAIL
-            - MIST
-            - FOG
-        timestamp:
-          type: integer
-          format: int64
-          description: Integer64 timestamp in seconds since epoch. Represents timestamp
-                       when the measurement was taken
-          example: 1742045290
-
-
 
     ErrorResponse:
       type: object
