@@ -54,5 +54,6 @@ public class ObservationsDtoTests {
         assertEquals("Clear", station2.getWeatherPhenomenon(), "Weather phenomenon should be 'Clear'");
         assertEquals(4.7, station2.getAirTemperature(), 0.001, "Air temperature should be 4.7");
         assertEquals(7.8, station2.getWindSpeed(), 0.001, "Wind speed should be 7.8");
+        assertEquals(1742045290, station2.getTimestamp(), 1742045290, "Timestamp must be 1742045290.");
     }
 }

@@ -1,5 +1,6 @@
 package com.fujitsu.trialtask.dto;
 
+import jakarta.xml.bind.Unmarshaller;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -26,4 +27,11 @@ public class WeatherConditionDto {
     @XmlElement(name = "windspeed")
     private Float windSpeed;
 
+    private Long timestamp;
+
+    void afterUnmarshal(Unmarshaller u, Object parent) {
+        if (parent instanceof ObservationsDto) {
+            this.timestamp = ((ObservationsDto) parent).getTimestamp();
+        }
+    }
 }

@@ -15,7 +15,7 @@ import java.util.List;
 public class ObservationsDto {
 
     @XmlAttribute(name = "timestamp")
-    private String timestamp;
+    private Long timestamp;
 
     @XmlElement(name = "station")
     private List<WeatherConditionDto> stations;
