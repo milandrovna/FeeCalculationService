@@ -21,11 +21,10 @@ public class ObservationsDto {
     private List<WeatherConditionDto> stations;
 
     @SneakyThrows
-    public static List<WeatherConditionDto> convertXmlToObservationsDto(String xml) {
+    public static ObservationsDto convertXmlToObservationsDto(String xml) {
         JAXBContext context = JAXBContext.newInstance(ObservationsDto.class);
         Unmarshaller unmarshaller = context.createUnmarshaller();
         StringReader reader = new StringReader(xml);
-        ObservationsDto observations = (ObservationsDto) unmarshaller.unmarshal(reader);
-        return observations.getStations();
+        return (ObservationsDto) unmarshaller.unmarshal(reader);
     }
 }

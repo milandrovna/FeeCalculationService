@@ -40,7 +40,8 @@ public class ObservationsDtoTests {
             </observations>
             """;
 
-        List<WeatherConditionDto> stations = ObservationsDto.convertXmlToObservationsDto(xml);
+        ObservationsDto observations = ObservationsDto.convertXmlToObservationsDto(xml);
+        List<WeatherConditionDto> stations = observations.getStations();
 
         // Verify that one station was parsed
         assertNotNull(stations, "Stations list should not be null");
