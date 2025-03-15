@@ -33,6 +33,10 @@ dependencies {
 	// https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api
 	implementation group: 'jakarta.xml.bind', name: 'jakarta.xml.bind-api', version: '4.0.2'
 
+	// https://mvnrepository.com/artifact/org.mapstruct/mapstruct
+	implementation group: 'org.mapstruct', name: 'mapstruct', version: '1.6.3'
+
+
 
 
 	compileOnly 'org.projectlombok:lombok'
