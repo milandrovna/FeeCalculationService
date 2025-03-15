@@ -1,6 +1,5 @@
 package com.fujitsu.trialtask.model;
 
-import com.fujitsu.trialtask.enums.WeatherPhenomenon;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,8 +31,7 @@ public class WeatherCondition {
     private Float windSpeed;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    private WeatherPhenomenon weatherPhenomenon;
+    private String weatherPhenomenon;
 
     @NotNull
     private Long timestamp;
