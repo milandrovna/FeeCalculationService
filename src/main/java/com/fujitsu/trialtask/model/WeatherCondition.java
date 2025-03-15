@@ -20,6 +20,9 @@ public class WeatherCondition {
     private Integer id;
 
     @NotNull
+    private String stationName;
+
+    @NotNull
     private Integer wmoStationCode;
 
     @NotNull
