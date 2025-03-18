@@ -5,7 +5,9 @@ import com.fujitsu.trialtask.model.WeatherCondition;
 import org.mapstruct.Mapper;
 import java.util.List;
 
-@Mapper(componentModel = "spring")public interface WeatherConditionMapper {
+@Mapper(componentModel = "spring")
+
+public interface WeatherConditionMapper {
     WeatherConditionDto entityToDto(WeatherCondition entity);
 
     WeatherCondition dtoToEntity(WeatherConditionDto dto);

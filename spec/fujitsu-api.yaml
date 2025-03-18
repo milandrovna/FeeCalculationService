@@ -1,11 +1,11 @@
-openapi: 3.1.1
+
+openapi: 3.0.1
 info:
   title: Fujitsu API
   version: 1.0.0
   description: |
     Food delivery application API that calculates the delivery fee for couriers 
     based on regional base fees, vehicle type, and weather conditions.
-
 servers:
   - url: http://localhost:8080/
     description: Local development server
@@ -13,6 +13,7 @@ servers:
 externalDocs:
   url: https://swagger.io/specification/
   description: Find more information about OAS3.0 standard.
+
 
 tags:
   - name: Application
@@ -92,3 +93,4 @@ components:
       schema:
         type: string
         enum: [ "bike", "car", "scooter" ]
+
