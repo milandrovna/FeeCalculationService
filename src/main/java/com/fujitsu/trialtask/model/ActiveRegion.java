@@ -25,4 +25,13 @@ public class ActiveRegion {
 
     @NotNull
     private String stationName;
+
+    @NotNull
+    private Float carRBFee;
+
+    @NotNull
+    private Float scooterRBFee;
+
+    @NotNull
+    private Float bikeRBFee;
 }

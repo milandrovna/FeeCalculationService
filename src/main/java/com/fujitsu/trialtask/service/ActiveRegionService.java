@@ -22,7 +22,7 @@ public class ActiveRegionService {
 
     public Set<String> getActiveStationNames() {
         return getActiveRegions().stream()
-                .map(ActiveRegion::getStationName) // Extract stationNam
+                .map(ActiveRegion::getStationName)
                 .collect(Collectors.toSet());
     }
 

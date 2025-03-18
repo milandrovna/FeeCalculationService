@@ -1,5 +1,6 @@
 package com.fujitsu.trialtask.dto;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -17,4 +18,14 @@ public class ActiveRegionDto {
 
     @XmlElement(name = "stationName")
     private String stationName;
+
+    @XmlElement(name = "carRBFee")
+    private Float carRBFee;
+
+    @XmlElement(name = "scooterRBFee")
+    private Float scooterRBFee;
+
+    @XmlElement(name = "bikeRBFee")
+    private Float bikeRBFee;
+
 }
