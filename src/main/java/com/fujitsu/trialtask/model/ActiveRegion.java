@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ActiveRegion {
+
     @Id
     @GeneratedValue
     private Integer id;
