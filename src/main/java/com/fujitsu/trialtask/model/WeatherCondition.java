@@ -15,7 +15,7 @@ import jakarta.validation.constraints.NotNull;
 public class WeatherCondition {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull
