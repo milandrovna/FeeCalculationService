@@ -19,13 +19,4 @@ public class ActiveRegionDto {
     @XmlElement(name = "stationName")
     private String stationName;
 
-    @XmlElement(name = "carRBFee")
-    private Float carRBFee;
-
-    @XmlElement(name = "scooterRBFee")
-    private Float scooterRBFee;
-
-    @XmlElement(name = "bikeRBFee")
-    private Float bikeRBFee;
-
 }

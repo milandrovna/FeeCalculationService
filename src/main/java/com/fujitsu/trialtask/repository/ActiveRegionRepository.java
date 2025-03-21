@@ -9,9 +9,9 @@ import java.util.Optional;
 
 public interface ActiveRegionRepository extends JpaRepository<ActiveRegion, Integer> {
 
-    @Query("""
-           SELECT region.stationName FROM ActiveRegion region 
-           WHERE region.regionName = :region
-           """)
-    Optional<String> findStationNameByRegion(@Param("region") String region);
+
+    @Query("SELECT a.stationName FROM ActiveRegion a WHERE a.regionName = :region")
+    String findStationNameByRegionName(@Param("region") String region);
+
+
 }
