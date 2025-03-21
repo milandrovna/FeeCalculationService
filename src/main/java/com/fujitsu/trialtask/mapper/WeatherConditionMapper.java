@@ -12,7 +12,4 @@ public interface WeatherConditionMapper {
 
     WeatherCondition dtoToEntity(WeatherConditionDto dto);
 
-    List<WeatherConditionDto> entitiesToDtoList(List<WeatherCondition> entities);
-
-    List<WeatherCondition> dtosToEntityList(List<WeatherConditionDto> dtos);
 }

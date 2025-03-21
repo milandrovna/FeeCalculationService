@@ -12,7 +12,4 @@ public interface ActiveRegionMapper {
 
     ActiveRegion dtoToEntity(ActiveRegionDto dto);
 
-    List<ActiveRegionDto> entitiesToDtoList(List<ActiveRegion> entities);
-
-    List<ActiveRegion> dtosToEntityList(List<ActiveRegionDto> dtos);
 }

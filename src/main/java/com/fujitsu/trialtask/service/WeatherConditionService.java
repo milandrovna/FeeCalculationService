@@ -15,14 +15,6 @@ public class WeatherConditionService {
 
     private final WeatherConditionRepository weatherConditionRepository;
 
-    public WeatherCondition getWeatherConditions(Long timestamp) {
-        return weatherConditionRepository.findByTimestamp(timestamp);
-    }
-
-    public WeatherCondition insertWeatherCondition(WeatherCondition weatherCondition) {
-        return weatherConditionRepository.save(weatherCondition);
-    }
-
     public List<WeatherCondition> insertWeatherConditions(List<WeatherCondition> weatherConditions) {
         return weatherConditionRepository.saveAll(weatherConditions);
     }

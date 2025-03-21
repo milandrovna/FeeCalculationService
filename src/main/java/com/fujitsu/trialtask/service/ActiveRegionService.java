@@ -25,12 +25,4 @@ public class ActiveRegionService {
                 .map(ActiveRegion::getStationName)
                 .collect(Collectors.toSet());
     }
-
-    public ActiveRegion insertActiveRegion(ActiveRegion activeRegion) {
-        return activeRegionRepository.save(activeRegion);
-    }
-
-    public List<ActiveRegion> insertActiveRegions(List<ActiveRegion> activeRegions) {
-        return activeRegionRepository.saveAll(activeRegions);
-    }
 }
