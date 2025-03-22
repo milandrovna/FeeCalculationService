@@ -30,7 +30,7 @@ public class FeeCalculationTest {
     private BusinessRuleRepository businessRuleRepository;
 
     @Mock
-    private VehicleRepository vehicleRepository;
+    private RegionalBaseFeeRepository vehicleRepository;
 
     @InjectMocks
     private FeeCalculationService feeCalculationService;
@@ -75,7 +75,7 @@ public class FeeCalculationTest {
         when(vehicleRepository.findRegionalBaseFeeByVehicleTypeRegionName("BIKE", "TARTU"))
                 .thenReturn(2.5f);
 
-        float fee = feeCalculationService.calculateFee("TARTU", "BIKE");
+        float fee = feeCalculationService.calculateFee("TARTU", "BIKE", 22312831L);
 
         assertEquals(4.0f, fee, 0.0001f);
     }
@@ -89,7 +89,7 @@ public class FeeCalculationTest {
                 .thenReturn(Optional.empty());
 
         ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
-            feeCalculationService.calculateFee("TALLINN", "Car");
+            feeCalculationService.calculateFee("TALLINN", "Car", 22312831L);
         });
         assertEquals("Weather data not available for chosen region", exception.getReason());
     }
@@ -112,7 +112,7 @@ public class FeeCalculationTest {
                 .thenReturn(Arrays.asList("Wind Speed"));
 
         ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
-            feeCalculationService.calculateFee("TALLINN", "Scooter");
+            feeCalculationService.calculateFee("TALLINN", "Scooter", 22312831L);
         });
         assertEquals("Usage of selected vehicle type is forbidden", exception.getReason());
     }
@@ -138,7 +138,7 @@ public class FeeCalculationTest {
 
 
         ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
-            feeCalculationService.calculateFee("PÄRNU", "Car");
+            feeCalculationService.calculateFee("PÄRNU", "Car", 22312831L);
         });
         assertEquals("Usage of selected vehicle type is forbidden", exception.getReason());
     }

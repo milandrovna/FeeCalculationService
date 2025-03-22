@@ -1,18 +1,18 @@
 package com.fujitsu.trialtask.repository;
 
 
-import com.fujitsu.trialtask.model.Vehicle;
+import com.fujitsu.trialtask.model.RegionalBaseFee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 
-public interface VehicleRepository extends JpaRepository<Vehicle, Integer> {
+public interface RegionalBaseFeeRepository extends JpaRepository<RegionalBaseFee, Integer> {
     @Query("""
-           select vehicle.regionalBaseFee 
-           from Vehicle vehicle
-           where vehicle.vehicleType = :vehicleType 
-             and vehicle.regionName = :regionName
+           select regionalBaseFee.regionalBaseFee 
+           from RegionalBaseFee regionalBaseFee
+           where regionalBaseFee.vehicleType = :vehicleType 
+             and regionalBaseFee.regionName = :regionName
            """)
     Float findRegionalBaseFeeByVehicleTypeRegionName(
             @Param("vehicleType") String vehicleType,

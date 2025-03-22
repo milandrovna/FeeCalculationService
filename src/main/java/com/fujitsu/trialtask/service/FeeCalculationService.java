@@ -21,12 +21,15 @@ public class FeeCalculationService {
     private final WeatherConditionRepository weatherConditionRepository;
     private final WeatherPhenomenonRepository weatherPhenomenonRepository;
     private final BusinessRuleRepository businessRuleRepository;
-    private final VehicleRepository vehicleRepository;
+    private final RegionalBaseFeeRepository regionalBaseFeeRepository;
 
 
-    public float calculateFee(String region, String vehicle){
+    public float calculateFee(String region, String vehicle, Long timestamp){
 
-        Optional<WeatherCondition> latestWeatherOptional = getLatestWeatherForRegion(region);
+        Optional<WeatherCondition> latestWeatherOptional = (timestamp != null)
+                ? getWeatherForRegionAtTime(region, timestamp)
+                : getLatestWeatherForRegion(region);
+
 
         if(latestWeatherOptional.isEmpty()){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Weather data not available for chosen region");
@@ -36,11 +39,10 @@ public class FeeCalculationService {
 
         float airTemperature = weather.getAirTemperature();
         float windSpeed = weather.getWindSpeed();
-        String weatherPhenomenon = weather.getWeatherPhenomenon();
+        String weatherPhenomenon = weather.getWeatherPhenomenon().toLowerCase();
 
         List<String> metrics = businessRuleRepository.findMetricTypesByVehicleType(vehicle);
 
-        System.out.println(metrics);
         float additionalFee = 0;
 
         if (metrics.contains("Air Temperature")){
@@ -53,10 +55,16 @@ public class FeeCalculationService {
             additionalFee += getFeeForWeatherPhenomenon(weatherPhenomenon);
         }
 
-        additionalFee += vehicleRepository.findRegionalBaseFeeByVehicleTypeRegionName(vehicle, region);
+        additionalFee += regionalBaseFeeRepository.findRegionalBaseFeeByVehicleTypeRegionName(vehicle, region);
 
         return additionalFee;
 
+    }
+
+    private Optional<WeatherCondition> getWeatherForRegionAtTime(String region, Long timestamp) {
+        String stationName = activeRegionRepository.findStationNameByRegionName(region);
+
+        return weatherConditionRepository.findByStationAndTimestamp(stationName, timestamp);
     }
 
     private float getFeeForWeatherPhenomenon(String weatherPhenomenon) {
@@ -74,13 +82,12 @@ public class FeeCalculationService {
 
     private float getFeeForWindSpeed(float windSpeed) {
 
-        if (windSpeed > 20) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Usage of selected vehicle type is forbidden");
-        }
-
         Optional<Float> additionalWindFee = businessRuleRepository.findFeeByWindSpeed(windSpeed);
-        return additionalWindFee.orElse(0F);
 
+        if(additionalWindFee.isPresent()){
+            return additionalWindFee.get();
+        }
+        else throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Usage of selected vehicle type is forbidden");
     }
 
     private float getFeeForAirTemperature(float airTemperature) {

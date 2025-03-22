@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Vehicle {
+public class RegionalBaseFee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

@@ -18,9 +18,8 @@ public class BusinessRule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "vehicle_id", nullable = false)
-    private Vehicle vehicle;
+    @NotNull
+    private String vehicleName;
 
     @NotNull
     private String metricType;

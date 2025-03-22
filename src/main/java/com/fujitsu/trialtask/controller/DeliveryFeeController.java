@@ -20,12 +20,12 @@ public class DeliveryFeeController {
 
     @GetMapping
     public ResponseEntity<?> getDeliveryFee(@RequestParam("city") String city,
-                                            @RequestParam("vehicleType") String vehicleType) {
+                                            @RequestParam("vehicleType") String vehicleType,
+                                            @RequestParam(value = "timestamp", required = false) Long timestamp) {
         try {
-            float fee = feeCalculationService.calculateFee(city, vehicleType);
+            float fee = feeCalculationService.calculateFee(city, vehicleType, timestamp);
             return ResponseEntity.ok(fee);
         } catch (ResponseStatusException ex) {
-
             return ResponseEntity.status(ex.getStatusCode()).body(ex.getReason());
         }
     }

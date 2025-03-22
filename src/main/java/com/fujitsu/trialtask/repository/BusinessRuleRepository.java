@@ -12,7 +12,7 @@ public interface BusinessRuleRepository extends JpaRepository<BusinessRule, Inte
 
     @Query("""
        SELECT DISTINCT rule.metricType FROM BusinessRule rule
-       WHERE rule.vehicle.vehicleType = :vehicleType
+       WHERE rule.vehicleName = :vehicleType
        """)
     List<String> findMetricTypesByVehicleType(@Param("vehicleType") String vehicleType);
 
