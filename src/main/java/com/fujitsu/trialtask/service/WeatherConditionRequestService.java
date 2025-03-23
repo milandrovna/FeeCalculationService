@@ -29,6 +29,10 @@ public class WeatherConditionRequestService {
 
     private final String url = "https://www.ilmateenistus.ee/ilma_andmed/xml/observations.php";
 
+    /***
+     *
+     */
+
     @Scheduled(cron = "0 15 * * * *")
     public void getWeatherData(){
 
