@@ -30,5 +30,6 @@ public class BusinessRule {
     @NotNull
     private Float maxValue;
 
+    @NotNull
     private Float additionalFee;
 }

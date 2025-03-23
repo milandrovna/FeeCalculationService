@@ -17,9 +17,20 @@ public class ActiveRegionService {
 
     private final ActiveRegionRepository activeRegionRepository;
 
+    /**
+     * Retrieves all active regions from the database.
+     *
+     * @return list of active regions
+     */
     public List<ActiveRegion> getActiveRegions() { return activeRegionRepository.findAll();
     }
 
+    /**
+     * Returns a set of station names from all active regions.
+     * Useful for filtering weather data based on active stations.
+     *
+     * @return set of active station names
+     */
     public Set<String> getActiveStationNames() {
         return getActiveRegions().stream()
                 .map(ActiveRegion::getStationName)

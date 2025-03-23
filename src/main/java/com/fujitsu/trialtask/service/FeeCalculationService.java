@@ -24,14 +24,29 @@ public class FeeCalculationService {
     private final RegionalBaseFeeRepository regionalBaseFeeRepository;
 
 
+    /**
+     * Calculates the delivery fee based on region, vehicle type, and optionally a timestamp.
+     * If a timestamp is provided, weather conditions at that time are used
+     * or at the closest timestamp that is less than provided timestamp;
+     *
+     * otherwise, the latest weather data is applied.
+     * The fee is calculated using applicable business rules and regional base fees.
+     *
+     * @param region the name of the delivery region
+     * @param vehicle the type of vehicle used for delivery
+     * @param timestamp optional timestamp to calculate fee based on historical weather
+     * @return the calculated delivery fee as a float
+     * @throws ResponseStatusException if no weather data is available for the region
+     * or no data available at/close to provided timestamp
+     */
+
     public float calculateFee(String region, String vehicle, Long timestamp){
 
         Optional<WeatherCondition> latestWeatherOptional = (timestamp != null)
                 ? getWeatherForRegionAtTime(region, timestamp)
                 : getLatestWeatherForRegion(region);
 
-
-        if(latestWeatherOptional.isEmpty()){
+        if(latestWeatherOptional.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Weather data not available for chosen region");
         }
 
@@ -61,17 +76,17 @@ public class FeeCalculationService {
 
     }
 
-    private Optional<WeatherCondition> getWeatherForRegionAtTime(String region, Long timestamp) {
-        String stationName = activeRegionRepository.findStationNameByRegionName(region);
-
-        return weatherConditionRepository.findByStationAndTimestamp(stationName, timestamp);
-    }
-
+    /**
+     * Finds fee for current weather phenomenon
+     * @param weatherPhenomenon current weather phenomenon
+     * @throws ResponseStatusException if phenomenon forbids delivery
+     * @return fee for given weather phenomenon
+     */
     private float getFeeForWeatherPhenomenon(String weatherPhenomenon) {
 
         Optional<Boolean> prohobited = weatherPhenomenonRepository.findProhibitionByPhenomenonType(weatherPhenomenon);
 
-        if(prohobited.isPresent() && prohobited.get()){
+        if(prohobited.isPresent() && prohobited.get()) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Usage of selected vehicle type is forbidden");
         }
 
@@ -80,6 +95,12 @@ public class FeeCalculationService {
         return additionalFee.orElse(0F);
     }
 
+    /**
+     * Finds fee for current wind speed
+     * @param windSpeed current wind speed
+     * @throws ResponseStatusException if wind speed forbids delivery
+     * @return fee for given wind speed
+     */
     private float getFeeForWindSpeed(float windSpeed) {
 
         Optional<Float> additionalWindFee = businessRuleRepository.findFeeByWindSpeed(windSpeed);
@@ -90,6 +111,11 @@ public class FeeCalculationService {
         else throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Usage of selected vehicle type is forbidden");
     }
 
+    /**
+     * Finds fee for current air temperature
+     * @param airTemperature current air temperature
+     * @return fee for given air temperature
+     */
     private float getFeeForAirTemperature(float airTemperature) {
 
         Optional<Float> additionalTemperatureFee = businessRuleRepository.findFeeByAirTemperature(airTemperature);
@@ -97,10 +123,28 @@ public class FeeCalculationService {
 
     }
 
+    /**
+     * Additional method to find weather condition for provided region
+     * at given timestamp or close to timestamp (<= timestamp)
+     *
+     * @param region the name of the delivery region
+     * @param timestamp timestamp to calculate fee based on historical weather
+     * @return weather conditions at given timestamp
+     */
+    private Optional<WeatherCondition> getWeatherForRegionAtTime(String region, Long timestamp) {
+        String stationName = activeRegionRepository.findStationNameByRegionName(region);
+
+        return weatherConditionRepository.findByStationAndTimestamp(stationName, timestamp);
+    }
+
+    /**
+     * Retrieves latest information about weather conditions
+     * @param region the name of the delivery region
+     * @return latest weather conditions
+     */
     private Optional<WeatherCondition> getLatestWeatherForRegion(String region) {
 
         String stationName = activeRegionRepository.findStationNameByRegionName(region);
-
 
         return weatherConditionRepository.findLatestWeatherByStation(stationName);
 

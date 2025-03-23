@@ -29,10 +29,19 @@ public class WeatherConditionRequestService {
 
     private final String url = "https://www.ilmateenistus.ee/ilma_andmed/xml/observations.php";
 
-    /***
+    /**
+     * Scheduled task that runs every hour at the 15th minute to fetch and save weather data.
      *
+     * This method performs the following steps:
+     *
+     *   Retrieves the list of active station names from the {activeRegionService}.
+     *   Fetches the weather data in XML format from the external weather service using {restTemplate}.
+     *   Parses the XML into {ObservationsDto} and filters data to include only three active stations.
+     *   Maps each valid {WeatherConditionDto} to a {WeatherCondition} entity.
+     *   Persists the filtered weather conditions using {weatherConditionService}.
+     *
+     * Scheduled to run at minute 15 of every hour (e.g., 01:15, 02:15, etc.).
      */
-
     @Scheduled(cron = "0 15 * * * *")
     public void getWeatherData(){
 

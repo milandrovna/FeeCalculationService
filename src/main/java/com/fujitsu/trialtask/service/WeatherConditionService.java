@@ -15,6 +15,13 @@ public class WeatherConditionService {
 
     private final WeatherConditionRepository weatherConditionRepository;
 
+    /**
+     * Saves a list of weather conditions to the database.
+     * Used for bulk inserting weather data from external sources.
+     *
+     * @param weatherConditions list of weather condition entities to be saved
+     * @return list of saved weather condition entities
+     */
     public List<WeatherCondition> insertWeatherConditions(List<WeatherCondition> weatherConditions) {
         return weatherConditionRepository.saveAll(weatherConditions);
     }
