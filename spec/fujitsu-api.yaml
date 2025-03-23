@@ -21,42 +21,72 @@ tags:
   - name: Delivery Fee
 
 paths:
-  /fee:
+  /api/delivery-fee:
     get:
-      operationId: getFee
+      operationId: getDeliveryFee
       tags:
         - Delivery Fee
-      summary: Returns delivery fee
+      summary: Calculates delivery fee
       description: |
-        Calculates the delivery fee based on the provided location and delivery transport type.
+        Calculates the delivery fee based on the provided city, vehicle type, and optionally a timestamp.
       parameters:
-        - $ref: '#/components/parameters/Location'
-        - $ref: '#/components/parameters/DeliveryTransport'
+        - $ref: '#/components/parameters/City'
+        - $ref: '#/components/parameters/VehicleType'
+        - $ref: '#/components/parameters/Timestamp'
       responses:
         '200':
           description: Successful response with calculated delivery fee.
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/Fee'
-        '400':
-          description: Bad request (invalid parameters).
+        '403':
+          description: Weather data not available for chosen region.
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '500':
           description: Internal server error.
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties:
-                  $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/ErrorResponse'
 
 components:
+  parameters:
+    City:
+      name: city
+      in: query
+      description: Name of the city for delivery.
+      required: true
+      schema:
+        type: string
+
+    VehicleType:
+      name: vehicleType
+      in: query
+      description: Type of vehicle used for delivery.
+      required: true
+      schema:
+        type: string
+        enum: [ "bike", "car", "scooter" ]
+
+    Timestamp:
+      name: timestamp
+      in: query
+      description: Optional timestamp to base fee calculation on weather at that time.
+      required: false
+      schema:
+        type: integer
+        format: int64
+
   schemas:
     Fee:
       type: object
@@ -64,33 +94,14 @@ components:
         amount:
           type: number
           format: float
+          example: 4.50
         currency:
           type: string
           example: "EUR"
-
 
     ErrorResponse:
       type: object
       properties:
         error:
           type: string
-          example: "Invalid location provided."
-
-  parameters:
-    Location:
-      name: location
-      in: query
-      description: Delivery location
-      required: true
-      schema:
-        type: string
-
-    DeliveryTransport:
-      name: deliveryTransport
-      in: query
-      description: Delivery transport type
-      required: true
-      schema:
-        type: string
-        enum: [ "bike", "car", "scooter" ]
-
+          example: "Weather data not available for chosen region."
