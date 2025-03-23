@@ -19,9 +19,20 @@ This Spring Boot application calculates the delivery fee based on:
 - Groovy: 3.0.22
 
 ## Installation and Setup
+
+1. **Clone the repository:**
 ```bash
 git clone https://github.com/milandrovna/FeeCalculationService.git
-cd src\main\java\com\fujitsu\trialtask
-run TrialtaskApplication.java
-
-  
+```
+2. **Navigate to the project directory:**
+```bash
+cd FeeCalculationService
+```
+3. **Run the application:**
+```bash
+./gradlew bootRun
+```
+**Alternatively, if you prefer to run the main class directly from your IDE, open the project and run:**
+```bash
+src/main/java/com/fujitsu/trialtask/TrialtaskApplication.java
+```
