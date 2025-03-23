@@ -106,6 +106,6 @@ public class FeeCalculationService {
 
     }
 
-    private int getAdditionalFee(String metric, String vehicle, int metricValue){return 0;}
+
 
 }

@@ -52,4 +52,3 @@ INSERT INTO business_rule (vehicle_name, metric_type, min_value, max_value, addi
 VALUES
     ('Bike',
     'Wind Speed', 0, 9, 0);
-

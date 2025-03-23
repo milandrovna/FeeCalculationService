@@ -29,9 +29,4 @@ public class WeatherConditionDto {
 
     private Long timestamp;
 
-    void afterUnmarshal(Unmarshaller u, Object parent) {
-        if (parent instanceof ObservationsDto) {
-            this.timestamp = ((ObservationsDto) parent).getTimestamp();
-        }
-    }
 }

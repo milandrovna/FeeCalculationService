@@ -38,7 +38,7 @@ class WeatherConditionServiceRequestTest {
 
     @BeforeEach
     void injectRestTemplateViaReflection() throws Exception {
-        // Inject the mocked RestTemplate into the private final field
+
         Field restTemplateField = WeatherConditionRequestService.class.getDeclaredField("restTemplate");
         restTemplateField.setAccessible(true);
         restTemplateField.set(scheduler, mockRestTemplate);
