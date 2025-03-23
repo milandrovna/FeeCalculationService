@@ -30,13 +30,13 @@ VALUES
 INSERT INTO business_rule (vehicle_name, metric_type, min_value, max_value, additional_fee)
 VALUES
     ('Bike',
-    'Air Temperature', -2147483648, -10, 1),
+    'Air Temperature', -1000.0, -10.000001, 1),
     ('Bike',
-     'Air Temperature', -10, 0, 0.5),
+     'Air Temperature', -10.0, -0.000001, 0.5),
     ('Scooter',
-     'Air Temperature', -2147483648, -10, 1),
+     'Air Temperature', -1000.0, -10.000001, 1),
     ('Scooter',
-     'Air Temperature', -10, 0, 0.5),
+     'Air Temperature', -10.0, -0.000001, 0.5),
     ('Scooter',
      'Weather Phenomenon', 0, 0, 0),
     ('Bike',
@@ -46,9 +46,9 @@ VALUES
 INSERT INTO business_rule (vehicle_name, metric_type, min_value, max_value, additional_fee)
 VALUES
     ('Bike',
-    'Wind Speed', 10, 20, 0.5);
+    'Wind Speed', 10.0, 20.0, 0.5);
 
 INSERT INTO business_rule (vehicle_name, metric_type, min_value, max_value, additional_fee)
 VALUES
     ('Bike',
-    'Wind Speed', 0, 9, 0);
+    'Wind Speed', 0.0, 9.9999, 0);
