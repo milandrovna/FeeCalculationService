@@ -19,10 +19,11 @@ public interface WeatherConditionRepository extends JpaRepository<WeatherConditi
     Optional<WeatherCondition> findLatestWeatherByStation(@Param("station") String station);
 
     @Query("""
-       SELECT w FROM WeatherCondition w
-       WHERE w.stationName = :station AND w.timestamp <= :timestamp
-       ORDER BY w.timestamp DESC
-       LIMIT 1
+           SELECT weather
+           FROM WeatherCondition weather
+           WHERE weather.stationName = :station
+           ORDER BY ABS(weather.timestamp - :timestamp) ASC
+           Limit 1
        """)
     Optional<WeatherCondition> findByStationAndTimestamp(@Param("station") String station,
                                                          @Param("timestamp") Long timestamp);

@@ -18,6 +18,15 @@ public class DeliveryFeeController {
         this.feeCalculationService = feeCalculationService;
     }
 
+    /**
+     * Calculates the delivery fee based on the vehicle and the weather conditions of
+     * the provided region. If a timestamp is given, the weather record at that timestamp
+     * (or the closest available record) is used.
+     * @param city name of the region of delivery
+     * @param vehicleType name of the vehicle used for delivery
+     * @param timestamp optional parameter; the time at which the weather conditions were recorded
+     * @return the fee of a delivery
+     */
     @GetMapping
     public ResponseEntity<?> getDeliveryFee(@RequestParam("city") String city,
                                             @RequestParam("vehicleType") String vehicleType,

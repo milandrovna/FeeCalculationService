@@ -27,7 +27,7 @@ public class FeeCalculationService {
     /**
      * Calculates the delivery fee based on region, vehicle type, and optionally a timestamp.
      * If a timestamp is provided, weather conditions at that time are used
-     * or at the closest timestamp that is less than provided timestamp;
+     * or at the closest timestamp to the timestamp provided as a parameter
      *
      * otherwise, the latest weather data is applied.
      * The fee is calculated using applicable business rules and regional base fees.
@@ -125,7 +125,7 @@ public class FeeCalculationService {
 
     /**
      * Additional method to find weather condition for provided region
-     * at given timestamp or close to timestamp (<= timestamp)
+     * at given timestamp or close to the timestamp
      *
      * @param region the name of the delivery region
      * @param timestamp timestamp to calculate fee based on historical weather
