@@ -7,7 +7,7 @@ This Spring Boot application calculates the delivery fee based on:
 - **Latest weather conditions** (if timestamp is provided weather conditions are
   obtained for a specified timestamp or the closest available record)
 
-  ## Features
+## Features
 - RESTful API for fee calculation
 - Integration with the latest weather data
 - YAML-based API documentation
@@ -19,7 +19,7 @@ This Spring Boot application calculates the delivery fee based on:
 - Groovy: 3.0.22
 
 ## Installation and Setup
-
+```bash
 git clone https://github.com/milandrovna/FeeCalculationService.git
 cd src\main\java\com\fujitsu\trialtask
 run TrialtaskApplication.java
